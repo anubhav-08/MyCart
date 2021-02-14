@@ -1,0 +1,11 @@
+.carousel-item img{
+    height: 400px;
+    /* width: auto; */
+    padding: 0px 250px;
+    background-color: blanchedalmond;
+}
+
+.carousel-control-prev, .carousel-control-next{
+    background: 0;
+    border: none;
+}
