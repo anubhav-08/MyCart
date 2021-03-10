@@ -1,0 +1,25 @@
+{% extends 'shop/basic.html' %}
+
+{%block body%}
+<h2>Contact Us</h2>
+<form action="/shop/contact/" method="POST">{% csrf_token %}
+    <div class="form-floating mb-3">
+        <input type="name" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+        <label for="floatingInput">Name</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+        <label for="floatingInput">Email address</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" pattern="[0-9]{10}">
+        <label for="floatingInput">Phone No.</label>
+    </div>
+    <div class="form-floating">
+        <textarea class="form-control" placeholder="Enter your query here" name="desc" id="floatingTextarea2"
+            style="height: 100px" required></textarea>
+        <label for="floatingTextarea2">Enter your query</label>
+    </div>
+    <button type="submit" class="btn btn-success mt-2">Submit</button>
+</form>
+{%endblock%}

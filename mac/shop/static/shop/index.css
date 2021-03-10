@@ -1,11 +1,52 @@
-.carousel-item img{
-    height: 400px;
-    /* width: auto; */
-    padding: 0px 250px;
-    background-color: blanchedalmond;
+.card{
+    background-color: black;
+    color: white;
+    border: none;
+}
+.col-md-3{
+    display: inline-block;
+    margin: 0px;
+    margin-left: -4px;
+    margin-right: -1px;
+    padding: 0px;
+    border-collapse: collapse;
+}
+.click{
+    margin-bottom: 1rem;
 }
 
-.carousel-control-prev, .carousel-control-next{
-    background: 0;
-    border: none;
+.no-padding{
+    /* padding: 0px; */
+    padding-left: 4px;
+}
+.carousel-indicators{
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: -24px;
+}
+.carousel-indicators .active{
+    background-color: red;
+}
+
+.carousel-control-next, .carousel-control-prev{
+    height: 30px;
+    width: 30px;
+   
+    /* display: table-row; */
+    position: absolute;
+    top: 50%;
+    color: black !important;
+    background-color: blue;
+}
+.carousel-control-next{
+    right: -70px;
+}
+.carousel-control-prev{
+    left: -70px;
+}
+
+.card-img-top{
+    height: 255px;
+    width: auto;
 }
