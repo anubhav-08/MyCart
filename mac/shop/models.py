@@ -22,3 +22,29 @@ class Contact(models.Model):
 
     def __str__(self):
         return (self.name)
+
+class Order(models.Model):
+    order_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=200, default="")
+    # lastName = models.CharField(max_length=50, default="")
+    address = models.TextField(default="")
+    # address2 = models.TextField(default="")
+    city = models.CharField(max_length=50,default="")
+    state = models.CharField(max_length=50,default="")
+    zipCode = models.CharField(max_length=10,default="")
+    phoneNum = models.CharField(max_length=10,default="")
+    altPhoneNum = models.CharField(max_length=10,default="")
+    items = models.TextField()
+
+    def __str__(self):
+        return (self.name)
+
+
+class TrackOrder(models.Model):
+    tracking_id = models.AutoField(primary_key=True)
+    order_id = models.CharField(max_length=50, default="")
+    description = models.CharField(max_length=500, default="")
+    timestamp = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.description[0:10]+ "...."

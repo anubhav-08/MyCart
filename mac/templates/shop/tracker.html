@@ -1,0 +1,71 @@
+{%extends 'shop/basic.html'%}
+
+{%block title%}
+Tracker-Mac
+{%endblock%}
+
+{%block body%}
+<div class="row my-2">
+    <h2>Track your order here....</h2>
+    <hr>
+    <form class="row g-2" id='trackOrder'>{% csrf_token %}
+        <!-- <input type="hidden" id="orderList" name="orderList" required> -->
+        <div class="col-md-6">
+            <label for="inputOrderId" class="form-label">Order Id <sup
+                    style="color: red; font-size: 15px; top: -0.3em;">*</sup></label>
+            <input type="text" class="form-control" id="inputOrderId" name="orderId" required>
+        </div>
+        <div class="col-md-6">
+            <label for="inputPhoneNumber" class="form-label">Phone Number <sup
+                    style="color: red; font-size: 15px; top: -0.3em;">*</sup></label>
+            <input type="tel" class="form-control" id="inputPhoneNumber" name="phoneNumber" pattern="[0-9]{10}"
+                required>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Track Order</button>
+        </div>
+    </form>
+</div>
+<hr>
+<div class="row my-4">
+    <h2 id="orderStat">Order status</h2>
+    <hr>
+    <ul class="list-group" id="orderProgress">
+        <li class="list-group-item d-flex justify-content-between align-items-center" id="noCart">
+            Enter your order id and phone number to fetch the status of your order.
+            <!-- <span class="badge bg-primary rounded-pill">14</span> -->
+        </li>
+    </ul>
+</div>
+
+<div class="row my-4">
+    <h2>Order details</h2>
+    <hr>
+    <div class="row" id="info">
+        <!-- <div class="row">
+            <div class="col-12 col-md-4">Name : Anubhav Tyagi</div>
+            <div class="col-12 col-md-4">Phone No. : 999001514</div>
+            <div class="col-12 col-md-4">Order Id. : 30</div>
+            <div class="col-12">Address : A-31/5 DELHI DELHI</div>
+        </div> -->
+    </div>
+    <ul class="list-group" id="cartItems">
+        <li class="list-group-item d-flex justify-content-between align-items-center" id="noCart">
+            Enter your order id and phone number to fetch the status of your order.
+            <!-- <span class="badge bg-primary rounded-pill">14</span> -->
+        </li>
+    </ul>
+</div>
+
+{%block js%}
+{%load static%}
+
+<!-- Jquery script file -->
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+
+    
+<script src="{%static 'shop/tracker.js'%}"></script>
+{%endblock%}
+{%endblock%}

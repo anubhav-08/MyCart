@@ -8,13 +8,13 @@
             <span id="btnpr{{prod.product_id}}" class="flex-fill me-1 btnpr">
                 <div class="btn btn-primary addToCart col-12" id="pr{{prod.product_id}}">Add to cart</div>
             </span>
-            <div class="btn btn-primary flex-fill">Buy now</div>
+            <a class="btn btn-primary flex-fill" href="/shop/productbuy/{{prod.product_id}}">Buy now</a>
         </div>
     </div>
     <div class="col-md-8 col-sm-12">
         <h2 id="namepr{{prod.product_id}}">{{prod.product_name}}</h2>
         <hr style="height: 5px;">
-        <h5><b>Rs. {{prod.product_price}}</b></h5>
+        <h5><b id="pricepr{{prod.product_id}}">Rs.{{prod.product_price}}</b></h5>
         <p>{{prod.desc}}</p>
     </div>
 </div>

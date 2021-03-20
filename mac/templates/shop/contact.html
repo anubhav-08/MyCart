@@ -1,8 +1,18 @@
 {% extends 'shop/basic.html' %}
 
+
+{%block title%}
+Contact Us-Mac
+{%endblock%}
+
 {%block body%}
+
+<!-- <div class="alert alert-warning alert-dismissible fade show" role="alert" id="querySubmitted">
+    <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="display: none;"></button>
+</div> -->
 <h2>Contact Us</h2>
-<form action="/shop/contact/" method="POST">{% csrf_token %}
+<form onsubmit="return querySubmit()" method="POST">{% csrf_token %}
     <div class="form-floating mb-3">
         <input type="name" class="form-control" id="name" name="name" placeholder="Enter your name" required>
         <label for="floatingInput">Name</label>
@@ -12,7 +22,8 @@
         <label for="floatingInput">Email address</label>
     </div>
     <div class="form-floating mb-3">
-        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" pattern="[0-9]{10}">
+        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number"
+            pattern="[0-9]{10}">
         <label for="floatingInput">Phone No.</label>
     </div>
     <div class="form-floating">
@@ -22,4 +33,16 @@
     </div>
     <button type="submit" class="btn btn-success mt-2">Submit</button>
 </form>
+{%block js%}
+<script>
+    function querySubmit(){
+        txt = 'Query submitted successfully.'
+        alert(txt);
+        return true;
+        // window.location = '/shop/';
+    }
+</script>
 {%endblock%}
+
+{%endblock%}
+

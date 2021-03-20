@@ -1,0 +1,22 @@
+{%extends 'shop/basic.html'%}
+
+{%block title%}
+Confirmation-Mac
+{%endblock%}
+{%block body%}
+<!-- <div class="row">
+    <h2>Order Placed Successfully</h2>
+    <h3>Order id is {{id}}</h3>
+    <h5>Track your order <a href="{%url 'tracker'%}">here</a></h5>
+</div> -->
+<div class="card text-center">
+    <div class="card-header">
+      Confirmation
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Order Placed Successfully</h5>
+      <p class="card-text">Your order id is : {{id}}</p>
+      <a href="{%url 'tracker'%}" class="btn btn-primary">Track Your Order</a>
+    </div>
+  </div>
+{%endblock%}

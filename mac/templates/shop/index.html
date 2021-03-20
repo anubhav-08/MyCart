@@ -31,6 +31,7 @@
           <img src="../media/{{i.image}}" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title" id="namepr{{i.product_id}}">{{i.product_name}}</h5>
+            <h6 class="card-text" id="pricepr{{i.product_id}}" style="color: #5adf1f;">Rs.{{i.product_price}}</h6>
             <p class="card-text">{{i.desc|slice:60}}.....</p>
             <div class="d-flex justify-content-evenly">
               <span id="btnpr{{i.product_id}}" class="flex-fill me-2 btnpr">
