@@ -27,6 +27,7 @@ Checkout-Mac
     <hr>
     <form class="row g-3" method="POST" onsubmit="return orderCart()" id='placeOrder'>{% csrf_token %}
         <input type="hidden" id="orderList" name="orderList" required>
+        <input type="hidden" id="amount" name="amount" required>
         <div class="col-md-6">
             <label for="inputFirstName" class="form-label">First Name <sup
                     style="color: red; font-size: 15px; top: -0.3em;">*</sup></label>
@@ -79,7 +80,7 @@ Checkout-Mac
                 name="alternatePhoneNum">
         </div>
         <div class="col-12">
-            <button type="submit" class="btn btn-primary">Proceed</button>
+            <button type="submit" class="btn btn-primary">Proceed to Payment</button>
         </div>
     </form>
 </div>

@@ -35,7 +35,8 @@ class Order(models.Model):
     phoneNum = models.CharField(max_length=10,default="")
     altPhoneNum = models.CharField(max_length=10,default="")
     items = models.TextField()
-
+    amount = models.IntegerField(default=10)
+    
     def __str__(self):
         return (self.name)
 

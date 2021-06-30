@@ -1,7 +1,3 @@
-// var popoverCart = new bootstrap.Popover(document.querySelector('.cartPopover'),{
-//     contianer: 'body'
-// });
-
 
 
 let navBtn = document.getElementsByClassName('nav-link');

@@ -26,7 +26,7 @@ SECRET_KEY = 'o(0ha_w8+o-f$afqjsa%fr^ab%7_w1ah6v^gczrx5qok=w7t+d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -120,12 +120,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+MID_PAYTM = "YOUR PAYTM MERCHANT ID"
+MKEY_PAYTM = '''MERCHANT SECRET KEY'''
 
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATIC_URL = '/static/'
 # STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Managing media
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'

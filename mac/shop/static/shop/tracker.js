@@ -17,28 +17,28 @@ $('#trackOrder').submit(function (event) {
             $('#orderProgress').empty();
             $('#cartItems').empty();
             $('#info').empty();
-            
+
             document.getElementById('trackOrder').reset();
             data = JSON.parse(data);
             console.log(data);
 
             if (data.length === 0) {
-                
+
                 document.getElementById('orderStat').innerHTML = `Order status`;
                 str = `<li class="list-group-item justify-content-between">
                 Incorrect <b>Order Id</b> or <b>Phone Number</li>`
-                
+
                 $('#orderProgress').append(str);
                 $('#cartItems').append(str);
 
             } else {
                 document.getElementById('orderStat').innerHTML = `Order status for order id : ${formData['orderId']}`;
-               
+
                 for (var i = 0; i < (data.length - 1); i++) {
                     str = `<li class="list-group-item d-flex justify-content-between align-items-center">
                     ${data[i]['text']}
                     <span class="badge bg-primary rounded-pill">${data[i]['time']}</span></li>`
-                    
+
                     $('#orderProgress').append(str);
 
                 }
@@ -70,7 +70,7 @@ $('#trackOrder').submit(function (event) {
                     <span class="col-2">Qty : ${items[item][0]}</span>
                     <span class="col-3 text-end">₹ ${items[item][0] * items[item][2]}</span>
                     </li>`
-                    
+
                     $('#cartItems').append(orderBrief);
                 }
                 txt = `<li class="list-group-item d-flex justify-content-between align-items-center my-4">
@@ -78,7 +78,7 @@ $('#trackOrder').submit(function (event) {
             <span class="col-2"><b>Items : ${totalItems}</b></span>
             <span class="col-3 text-end"><b>₹ ${sum}</b><span>
             </li>`
-            $('#cartItems').append(txt);
+                $('#cartItems').append(txt);
             }
 
         });

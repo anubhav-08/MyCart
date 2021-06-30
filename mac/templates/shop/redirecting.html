@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Redirecting to Merchant...</h1>
+    <h2>Do not refresh this page...</h2>
+    <script>
+        window.addEventListener('popstate', (event) => {
+            // console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
+        });
+        history.replaceState({ view: 2 }, "home", "http://127.0.0.1:8000/");
+        
+        setTimeout(function () {
+            window.location = "/shop";
+        }, 5000);
+    </script>
+</body>
+
+</html>

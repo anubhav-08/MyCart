@@ -1,9 +1,18 @@
+from mac.settings import MID_PAYTM, MKEY_PAYTM
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
+
+
 from .models import Product, Contact, Order, TrackOrder
 from math import ceil
 import json
+import requests
+
+from paytm import Checksum
 # Create your views here.
+# set to settings
 
 def index(request):
     allProd = []
@@ -73,11 +82,17 @@ def productView(request, id):
     # print(prod)
     return render(request, 'shop/productView.html', {'prod' :  prod[0]})
 
+def confirmation(request, id):
+
+    return render(request, 'shop/confirmation.html', {'id' : id})
+
+
 
 def checkout(request):
     # prodcuts = Product.objects.all()
     if request.method == "POST":
         itemsJson = request.POST.get('orderList')
+        amount = request.POST.get('amount')
         name = request.POST.get('firstName', "")+" "+request.POST.get('lastName', "")
         address = request.POST.get('address1', "")+"\n"+request.POST.get('address2', "")
         city = request.POST.get('city', "")
@@ -85,17 +100,86 @@ def checkout(request):
         zipCode  = request.POST.get('zipCode', "")
         phoneNum  = request.POST.get('phoneNum', "")
         altPhoneNum  = request.POST.get('alternatePhoneNum', "")
-
-        order = Order(name = name, address=address, city=city, state=state, zipCode=zipCode, phoneNum=phoneNum, altPhoneNum=altPhoneNum, items=itemsJson)
+        
+        print(amount)
+        order = Order(name = name, address=address, city=city, state=state, zipCode=zipCode, phoneNum=phoneNum, altPhoneNum=altPhoneNum, items=itemsJson, amount=amount)
         order.save()
 
         orderId = order.order_id
         update = TrackOrder(order_id = orderId, description = "Your order has been placed.")
         update.save()
 
-        return render(request, 'shop/confirmation.html', {'id' : orderId})
-    
+
+        # return render(request, 'shop/confirmation.html', {'id' : orderId})
+        # Request paytm for amount from user to our merchant account
+
+        paytmParams = dict()
+        print(request.user.pk)
+        paytmParams["body"] = {
+            "requestType"   : "Payment",
+            "mid"           : MID_PAYTM,
+            "websiteName"   : "WEBSTAGING",
+            "orderId"       : str(orderId),
+            "callbackUrl"   : "http://127.0.0.1:8000/shop/handlerequest/",
+            "txnAmount"     : {
+                "value"     : str(amount),
+                "currency"  : "INR",
+            },
+            "userInfo"      : {
+                "custId"    : str(request.user.pk),
+            },
+        }
+
+        # Generate checksum by parameters we have in body
+        # Find your Merchant Key in your Paytm Dashboard at https://dashboard.paytm.com/next/apikeys 
+        checksum = Checksum.generateSignature(json.dumps(paytmParams["body"]), MKEY_PAYTM)
+
+        paytmParams["head"] = {
+            "signature"    : checksum
+        }
+        # print(checksum) 
+        post_data = json.dumps(paytmParams)
+        # for staging
+        url = f"https://securegw-stage.paytm.in/theia/api/v1/initiateTransaction?mid={MID_PAYTM}&orderId={orderId}"
+        response = requests.post(url, data = post_data, headers = {"Content-type": "application/json"}).json()
+        # print(response)
+        resCode = response['body']['resultInfo']['resultCode']
+        params = {
+            'mid' : MID_PAYTM,
+            'orderId' : orderId
+        }
+
+        if(resCode == '0000'):
+            # print(response['body']['txnToken'])
+            params['txnToken'] = response['body']['txnToken']
+            return render(request, 'shop/paytm.html', params)   
+
+        return render(request, 'shop/index.html')
     return render(request, 'shop/checkout.html')
+
+@csrf_exempt
+def handleRequest(request):
+    # paytm make post request here
+    form = request.POST
+    response_dict = {}
+    for i in form.keys():
+        if i == 'CHECKSUMHASH':
+            checksum = form[i]
+            continue
+        response_dict[i] = form[i]
+    
+    print(response_dict)
+    print(request.POST.get('MID'))
+    isChecksumVerified = Checksum.verifySignature(response_dict, MKEY_PAYTM, checksum)
+    if isChecksumVerified:
+        if response_dict['RESPCODE'] == '01':
+            print('payment successfull')
+        else:
+            print('payment failed due to ' + response_dict['RESPMSG'])
+
+
+    return render(request, 'shop/paymentstatus.html', response_dict)
+
 
 def productinfo(request):
     if request.method == "POST":

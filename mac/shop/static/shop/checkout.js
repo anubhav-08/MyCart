@@ -59,11 +59,13 @@ function qtyChange(id){
 
 function orderCart() {
     var orderList = {};
+    var amount = 0;
     for (var item in cart) {
         if (cart[item][0] != 0) {
             qty = cart[item][0];
             itemName = cart[item][1];
             itemPrice = cart[item][2];
+            amount = amount + (qty * itemPrice);
             orderList[item] = [qty, itemName, itemPrice];
         }
     }
@@ -74,6 +76,7 @@ function orderCart() {
         return false;
     } else {
         document.getElementById('orderList').value = JSON.stringify(orderList);
+        document.getElementById('amount'). value = amount;
         localStorage.removeItem('cart');
         return true;
     }
